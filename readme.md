@@ -2,7 +2,7 @@
 
 ## Guide
 
-If you New to Node.js, just start with Grammars.
+If you New to Node.js, just start with Grammars.\n
 First, make directory to learn it.
 Second, type commands below
 `npm init -y`

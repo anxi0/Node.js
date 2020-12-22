@@ -9,3 +9,6 @@ const server = http.createServer((req, res) => {
 server.listen(8080, () => {
 	console.log('8080 listening'); //Checkout netstat -ano or Resource Monitor
 });
+server.on('error', (e) => {
+	console.error(e);
+});
