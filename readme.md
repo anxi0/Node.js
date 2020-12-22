@@ -25,8 +25,8 @@ and save the code below as .eslintrc in your working directory\
     "ecmaVersion": 2018
   }
 }
-``
-Third, download prettier extension and save the code below as .prettierrc in your working director
+```\
+Third, download prettier extension and save the code below as .prettierrc in your working directory\
 ```
 {
   "singleQuote": true,
