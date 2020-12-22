@@ -25,7 +25,7 @@ and save the code below as .eslintrc in your working directory\
     "ecmaVersion": 2018
   }
 }
-```\
+```
 Third, download prettier extension and save the code below as .prettierrc in your working directory\
 ```
 {
@@ -36,5 +36,5 @@ Third, download prettier extension and save the code below as .prettierrc in you
   "trailingComma": "all",
   "printWidth": 80
 }
-```\
+```
 Last, Go to vscode settings by `Ctrl+,` and search 'format on save' option and check it.
