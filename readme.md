@@ -2,13 +2,13 @@
 
 ## Guide
 
-If you New to Node.js, just start with Grammars.\n
-First, make directory to learn it.
-Second, type commands below
-`npm init -y`
-`npm install eslint --save-dev`
-`eslint --init` and follow settings
-and save the code below as .eslintrc in your working directory
+If you New to Node.js, just start with Grammars.\
+First, make directory to learn it.\
+Second, type commands below\
+`npm init -y`\
+`npm install eslint --save-dev`\
+`eslint --init` and follow settings\
+and save the code below as .eslintrc in your working directory\
 ```
 {
   "env": {
@@ -25,8 +25,8 @@ and save the code below as .eslintrc in your working directory
     "ecmaVersion": 2018
   }
 }
-```
-Third, download prettier extension and save the code below as .prettierrc in your working directory
+``
+Third, download prettier extension and save the code below as .prettierrc in your working director
 ```
 {
   "singleQuote": true,
@@ -36,6 +36,5 @@ Third, download prettier extension and save the code below as .prettierrc in you
   "trailingComma": "all",
   "printWidth": 80
 }
-
-```
+```\
 Last, Go to vscode settings by `Ctrl+,` and search 'format on save' option and check it.
