@@ -8,7 +8,7 @@ Second, type commands below\
 `npm init -y`\
 `npm install eslint --save-dev`\
 `eslint --init` and follow settings\
-and save the code below as .eslintrc in your working directory\
+and save the code below as .eslintrc in your working directory
 ```
 {
   "env": {
@@ -26,7 +26,7 @@ and save the code below as .eslintrc in your working directory\
   }
 }
 ```
-Third, download prettier extension and save the code below as .prettierrc in your working directory\
+Third, download prettier extension and save the code below as .prettierrc in your working directory
 ```
 {
   "singleQuote": true,
