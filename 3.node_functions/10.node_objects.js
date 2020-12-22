@@ -136,7 +136,8 @@ console.log(buf.toString('base64'));
 console.error(error);
 });
 */
-//TODO: 130p : mutlithreading
+/*
+//TODO: 130p : mutlithreading TODO: passed
 const { Worker, isMainThread, parentPort } = require('worker_threads');
 
 if (isMainThread) {
@@ -151,3 +152,28 @@ if (isMainThread) {
         parentPort.close();
     })
 }
+*/
+
+//TODO: 135p : child_process
+//Can run shell commander or other program
+const exec = require('child_process').exec;
+var process = exec('dir');
+
+process.stdout.on('data', function (data) {
+    console.log(data.toString())
+})
+process.stderr.on('data', function (data) {
+    console.error(data.toString())
+})
+//run other program
+const spawn = require('child_process').spawn;
+
+var process = spawn('python', ['test.py']);
+
+process.stdout.on('data', function (data) {
+    console.log(data.toString())
+})
+process.stderr.on('data', function (data) {
+    console.error(data.toString())
+})
+// decode with iconv
