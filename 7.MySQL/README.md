@@ -61,3 +61,9 @@ UNIQUE INDEX : set when if variable should be unique. You can make it faster to 
 - `SELECT a,b FROM nodejs.users WHERE ORDER BY a ASC LIMIT 1 OFFSET 1` read a,b props from users table in ndoejs schema which is ordered by ascended a prop and show one row after the first one.
 - `UPDATE nodejs.users SET comment = 'different' WHERE id =2;` update change comment in users in nodejs which id is 2.
 - `DELETE DEOM nodejs.users WHERE id =1` delete id 1 row in users table in nodejs schema
+
+6. except those main concepts
+
+- If you are struggling with vscode git bash mysql running, you should check path by echo $PATH  
+type `PATH="$PATH:/c/Program Files/MySQL/MySQL Server 8.0/bin"`and run mysql with `winpty mysql -u root -p`
+- in Mac instead, `PATH="$PATH:/c/Program\ Files/MySQL/MySQL\ Server\ 8.0/bin"`
