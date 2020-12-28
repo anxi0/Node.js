@@ -1,0 +1,907 @@
+{
+  "{\"filename\":\"C:/Users/jw/Desktop/proj_CN/iotlink/vehicle_damage_detection/server/index.js\",\"env\":{},\"retainLines\":false,\"highlightCode\":true,\"suppressDeprecationMessages\":false,\"presets\":[],\"plugins\":[],\"ignore\":[],\"code\":true,\"metadata\":true,\"ast\":true,\"comments\":true,\"compact\":\"auto\",\"minified\":false,\"sourceRoot\":\"C:/Users/jw/Desktop/proj_CN/iotlink/vehicle_damage_detection/server\",\"babelrc\":true,\"sourceType\":\"module\",\"moduleIds\":false,\"passPerPreset\":false,\"parserOpts\":false,\"generatorOpts\":false}:6.26.3": {
+    "metadata": {
+      "usedHelpers": [],
+      "marked": [],
+      "modules": {
+        "imports": [
+          {
+            "source": "express",
+            "imported": [
+              "default"
+            ],
+            "specifiers": [
+              {
+                "kind": "named",
+                "imported": "default",
+                "local": "express"
+              }
+            ]
+          },
+          {
+            "source": "http",
+            "imported": [
+              "default"
+            ],
+            "specifiers": [
+              {
+                "kind": "named",
+                "imported": "default",
+                "local": "http"
+              }
+            ]
+          },
+          {
+            "source": "body-parser",
+            "imported": [
+              "default"
+            ],
+            "specifiers": [
+              {
+                "kind": "named",
+                "imported": "default",
+                "local": "bodyParser"
+              }
+            ]
+          },
+          {
+            "source": "cors",
+            "imported": [
+              "default"
+            ],
+            "specifiers": [
+              {
+                "kind": "named",
+                "imported": "default",
+                "local": "cors"
+              }
+            ]
+          },
+          {
+            "source": "dotenv",
+            "imported": [
+              "default"
+            ],
+            "specifiers": [
+              {
+                "kind": "named",
+                "imported": "default",
+                "local": "env"
+              }
+            ]
+          },
+          {
+            "source": "./api",
+            "imported": [
+              "default"
+            ],
+            "specifiers": [
+              {
+                "kind": "named",
+                "imported": "default",
+                "local": "api"
+              }
+            ]
+          },
+          {
+            "source": "./socket",
+            "imported": [
+              "default"
+            ],
+            "specifiers": [
+              {
+                "kind": "named",
+                "imported": "default",
+                "local": "io"
+              }
+            ]
+          },
+          {
+            "source": "ejs",
+            "imported": [
+              "default"
+            ],
+            "specifiers": [
+              {
+                "kind": "named",
+                "imported": "default",
+                "local": "ejs"
+              }
+            ]
+          },
+          {
+            "source": "path",
+            "imported": [
+              "default"
+            ],
+            "specifiers": [
+              {
+                "kind": "named",
+                "imported": "default",
+                "local": "path"
+              }
+            ]
+          },
+          {
+            "source": "socketio-file-upload",
+            "imported": [
+              "router"
+            ],
+            "specifiers": [
+              {
+                "kind": "named",
+                "imported": "router",
+                "local": "router"
+              }
+            ]
+          }
+        ],
+        "exports": {
+          "exported": [],
+          "specifiers": []
+        }
+      }
+    },
+    "options": {
+      "filename": "C:/Users/jw/Desktop/proj_CN/iotlink/vehicle_damage_detection/server/index.js",
+      "filenameRelative": "C:/Users/jw/Desktop/proj_CN/iotlink/vehicle_damage_detection/server/index.js",
+      "env": {},
+      "retainLines": false,
+      "highlightCode": true,
+      "suppressDeprecationMessages": false,
+      "presets": [],
+      "plugins": [],
+      "ignore": [],
+      "code": true,
+      "metadata": true,
+      "ast": false,
+      "comments": true,
+      "compact": "auto",
+      "minified": false,
+      "sourceMaps": "both",
+      "sourceMapTarget": "index.js",
+      "sourceFileName": "index.js",
+      "sourceRoot": "C:/Users/jw/Desktop/proj_CN/iotlink/vehicle_damage_detection/server",
+      "babelrc": false,
+      "sourceType": "module",
+      "moduleRoot": "C:/Users/jw/Desktop/proj_CN/iotlink/vehicle_damage_detection/server",
+      "moduleIds": false,
+      "passPerPreset": false,
+      "parserOpts": false,
+      "generatorOpts": false,
+      "basename": "index"
+    },
+    "ignored": false,
+    "code": "import express from 'express';\nimport http from 'http';\nimport bodyParser from 'body-parser';\nimport cors from 'cors';\nimport env from 'dotenv';\nimport api from './api';\nimport io from './socket';\nimport ejs from 'ejs';\nimport path from 'path';\nimport { router } from 'socketio-file-upload';\n\nenv.config();\n\nconsole.log(process.env.PORT);\nconst port = process.env.PORT || 5000;\n\nconst app = express();\nconst server = http.createServer(app).listen(port, () => {\n  console.log(`app is listening to port ${port}`);\n});\n// use socket.io\napp.io = io;\napp.io.attach(server);\napp.use(router);\n\n// Middlewares\napp.use(cors());\napp.use(bodyParser.json());\napp.use(bodyParser.urlencoded({ extended: true }));\n\n// Serve static files\napp.use(express.static('static'));\napp.use(express.static('output'));\n\n// Set View Engine\napp.set('views', path.join(__dirname, '../views'));\napp.set('view engine', 'ejs');\napp.engine('html', ejs.renderFile);\n\n// app.use('/api', api);\napp.get('/', (req, res) => res.render('index'));\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImluZGV4LmpzIl0sIm5hbWVzIjpbImV4cHJlc3MiLCJodHRwIiwiYm9keVBhcnNlciIsImNvcnMiLCJlbnYiLCJhcGkiLCJpbyIsImVqcyIsInBhdGgiLCJyb3V0ZXIiLCJjb25maWciLCJjb25zb2xlIiwibG9nIiwicHJvY2VzcyIsIlBPUlQiLCJwb3J0IiwiYXBwIiwic2VydmVyIiwiY3JlYXRlU2VydmVyIiwibGlzdGVuIiwiYXR0YWNoIiwidXNlIiwianNvbiIsInVybGVuY29kZWQiLCJleHRlbmRlZCIsInN0YXRpYyIsInNldCIsImpvaW4iLCJfX2Rpcm5hbWUiLCJlbmdpbmUiLCJyZW5kZXJGaWxlIiwiZ2V0IiwicmVxIiwicmVzIiwicmVuZGVyIl0sIm1hcHBpbmdzIjoiQUFBQSxPQUFPQSxPQUFQLE1BQW9CLFNBQXBCO0FBQ0EsT0FBT0MsSUFBUCxNQUFpQixNQUFqQjtBQUNBLE9BQU9DLFVBQVAsTUFBdUIsYUFBdkI7QUFDQSxPQUFPQyxJQUFQLE1BQWlCLE1BQWpCO0FBQ0EsT0FBT0MsR0FBUCxNQUFnQixRQUFoQjtBQUNBLE9BQU9DLEdBQVAsTUFBZ0IsT0FBaEI7QUFDQSxPQUFPQyxFQUFQLE1BQWUsVUFBZjtBQUNBLE9BQU9DLEdBQVAsTUFBZ0IsS0FBaEI7QUFDQSxPQUFPQyxJQUFQLE1BQWlCLE1BQWpCO0FBQ0EsU0FBU0MsTUFBVCxRQUF1QixzQkFBdkI7O0FBRUFMLElBQUlNLE1BQUo7O0FBRUFDLFFBQVFDLEdBQVIsQ0FBWUMsUUFBUVQsR0FBUixDQUFZVSxJQUF4QjtBQUNBLE1BQU1DLE9BQU9GLFFBQVFULEdBQVIsQ0FBWVUsSUFBWixJQUFvQixJQUFqQzs7QUFFQSxNQUFNRSxNQUFNaEIsU0FBWjtBQUNBLE1BQU1pQixTQUFTaEIsS0FBS2lCLFlBQUwsQ0FBa0JGLEdBQWxCLEVBQXVCRyxNQUF2QixDQUE4QkosSUFBOUIsRUFBb0MsTUFBTTtBQUN2REosVUFBUUMsR0FBUixDQUFhLDRCQUEyQkcsSUFBSyxFQUE3QztBQUNELENBRmMsQ0FBZjtBQUdBO0FBQ0FDLElBQUlWLEVBQUosR0FBU0EsRUFBVDtBQUNBVSxJQUFJVixFQUFKLENBQU9jLE1BQVAsQ0FBY0gsTUFBZDtBQUNBRCxJQUFJSyxHQUFKLENBQVFaLE1BQVI7O0FBRUE7QUFDQU8sSUFBSUssR0FBSixDQUFRbEIsTUFBUjtBQUNBYSxJQUFJSyxHQUFKLENBQVFuQixXQUFXb0IsSUFBWCxFQUFSO0FBQ0FOLElBQUlLLEdBQUosQ0FBUW5CLFdBQVdxQixVQUFYLENBQXNCLEVBQUNDLFVBQVUsSUFBWCxFQUF0QixDQUFSOztBQUVBO0FBQ0FSLElBQUlLLEdBQUosQ0FBUXJCLFFBQVF5QixNQUFSLENBQWUsUUFBZixDQUFSO0FBQ0FULElBQUlLLEdBQUosQ0FBUXJCLFFBQVF5QixNQUFSLENBQWUsUUFBZixDQUFSOztBQUdBO0FBQ0FULElBQUlVLEdBQUosQ0FBUSxPQUFSLEVBQWlCbEIsS0FBS21CLElBQUwsQ0FBVUMsU0FBVixFQUFxQixVQUFyQixDQUFqQjtBQUNBWixJQUFJVSxHQUFKLENBQVEsYUFBUixFQUF1QixLQUF2QjtBQUNBVixJQUFJYSxNQUFKLENBQVcsTUFBWCxFQUFtQnRCLElBQUl1QixVQUF2Qjs7QUFFQTtBQUNBZCxJQUFJZSxHQUFKLENBQVEsR0FBUixFQUFhLENBQUNDLEdBQUQsRUFBTUMsR0FBTixLQUFjQSxJQUFJQyxNQUFKLENBQVcsT0FBWCxDQUEzQiIsImZpbGUiOiJpbmRleC5qcyIsInNvdXJjZVJvb3QiOiJDOi9Vc2Vycy9qdy9EZXNrdG9wL3Byb2pfQ04vaW90bGluay92ZWhpY2xlX2RhbWFnZV9kZXRlY3Rpb24vc2VydmVyIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IGV4cHJlc3MgZnJvbSAnZXhwcmVzcyc7XHJcbmltcG9ydCBodHRwIGZyb20gJ2h0dHAnO1xyXG5pbXBvcnQgYm9keVBhcnNlciBmcm9tICdib2R5LXBhcnNlcic7XHJcbmltcG9ydCBjb3JzIGZyb20gJ2NvcnMnO1xyXG5pbXBvcnQgZW52IGZyb20gJ2RvdGVudic7XHJcbmltcG9ydCBhcGkgZnJvbSAnLi9hcGknO1xyXG5pbXBvcnQgaW8gZnJvbSAnLi9zb2NrZXQnO1xyXG5pbXBvcnQgZWpzIGZyb20gJ2Vqcyc7XHJcbmltcG9ydCBwYXRoIGZyb20gJ3BhdGgnO1xyXG5pbXBvcnQgeyByb3V0ZXIgfSBmcm9tICdzb2NrZXRpby1maWxlLXVwbG9hZCc7XHJcblxyXG5lbnYuY29uZmlnKCk7XHJcblxyXG5jb25zb2xlLmxvZyhwcm9jZXNzLmVudi5QT1JUKTtcclxuY29uc3QgcG9ydCA9IHByb2Nlc3MuZW52LlBPUlQgfHwgNTAwMDtcclxuXHJcbmNvbnN0IGFwcCA9IGV4cHJlc3MoKTtcclxuY29uc3Qgc2VydmVyID0gaHR0cC5jcmVhdGVTZXJ2ZXIoYXBwKS5saXN0ZW4ocG9ydCwgKCkgPT4ge1xyXG4gIGNvbnNvbGUubG9nKGBhcHAgaXMgbGlzdGVuaW5nIHRvIHBvcnQgJHtwb3J0fWApO1xyXG59KTtcclxuLy8gdXNlIHNvY2tldC5pb1xyXG5hcHAuaW8gPSBpbztcclxuYXBwLmlvLmF0dGFjaChzZXJ2ZXIpO1xyXG5hcHAudXNlKHJvdXRlcik7XHJcblxyXG4vLyBNaWRkbGV3YXJlc1xyXG5hcHAudXNlKGNvcnMoKSk7XHJcbmFwcC51c2UoYm9keVBhcnNlci5qc29uKCkpO1xyXG5hcHAudXNlKGJvZHlQYXJzZXIudXJsZW5jb2RlZCh7ZXh0ZW5kZWQ6IHRydWV9KSk7XHJcblxyXG4vLyBTZXJ2ZSBzdGF0aWMgZmlsZXNcclxuYXBwLnVzZShleHByZXNzLnN0YXRpYygnc3RhdGljJykpO1xyXG5hcHAudXNlKGV4cHJlc3Muc3RhdGljKCdvdXRwdXQnKSk7XHJcblxyXG5cclxuLy8gU2V0IFZpZXcgRW5naW5lXHJcbmFwcC5zZXQoJ3ZpZXdzJywgcGF0aC5qb2luKF9fZGlybmFtZSwgJy4uL3ZpZXdzJykpO1xyXG5hcHAuc2V0KCd2aWV3IGVuZ2luZScsICdlanMnKTtcclxuYXBwLmVuZ2luZSgnaHRtbCcsIGVqcy5yZW5kZXJGaWxlKTtcclxuXHJcbi8vIGFwcC51c2UoJy9hcGknLCBhcGkpO1xyXG5hcHAuZ2V0KCcvJywgKHJlcSwgcmVzKSA9PiByZXMucmVuZGVyKCdpbmRleCcpKTsiXX0=",
+    "ast": null,
+    "map": {
+      "version": 3,
+      "sources": [
+        "index.js"
+      ],
+      "names": [
+        "express",
+        "http",
+        "bodyParser",
+        "cors",
+        "env",
+        "api",
+        "io",
+        "ejs",
+        "path",
+        "router",
+        "config",
+        "console",
+        "log",
+        "process",
+        "PORT",
+        "port",
+        "app",
+        "server",
+        "createServer",
+        "listen",
+        "attach",
+        "use",
+        "json",
+        "urlencoded",
+        "extended",
+        "static",
+        "set",
+        "join",
+        "__dirname",
+        "engine",
+        "renderFile",
+        "get",
+        "req",
+        "res",
+        "render"
+      ],
+      "mappings": "AAAA,OAAOA,OAAP,MAAoB,SAApB;AACA,OAAOC,IAAP,MAAiB,MAAjB;AACA,OAAOC,UAAP,MAAuB,aAAvB;AACA,OAAOC,IAAP,MAAiB,MAAjB;AACA,OAAOC,GAAP,MAAgB,QAAhB;AACA,OAAOC,GAAP,MAAgB,OAAhB;AACA,OAAOC,EAAP,MAAe,UAAf;AACA,OAAOC,GAAP,MAAgB,KAAhB;AACA,OAAOC,IAAP,MAAiB,MAAjB;AACA,SAASC,MAAT,QAAuB,sBAAvB;;AAEAL,IAAIM,MAAJ;;AAEAC,QAAQC,GAAR,CAAYC,QAAQT,GAAR,CAAYU,IAAxB;AACA,MAAMC,OAAOF,QAAQT,GAAR,CAAYU,IAAZ,IAAoB,IAAjC;;AAEA,MAAME,MAAMhB,SAAZ;AACA,MAAMiB,SAAShB,KAAKiB,YAAL,CAAkBF,GAAlB,EAAuBG,MAAvB,CAA8BJ,IAA9B,EAAoC,MAAM;AACvDJ,UAAQC,GAAR,CAAa,4BAA2BG,IAAK,EAA7C;AACD,CAFc,CAAf;AAGA;AACAC,IAAIV,EAAJ,GAASA,EAAT;AACAU,IAAIV,EAAJ,CAAOc,MAAP,CAAcH,MAAd;AACAD,IAAIK,GAAJ,CAAQZ,MAAR;;AAEA;AACAO,IAAIK,GAAJ,CAAQlB,MAAR;AACAa,IAAIK,GAAJ,CAAQnB,WAAWoB,IAAX,EAAR;AACAN,IAAIK,GAAJ,CAAQnB,WAAWqB,UAAX,CAAsB,EAACC,UAAU,IAAX,EAAtB,CAAR;;AAEA;AACAR,IAAIK,GAAJ,CAAQrB,QAAQyB,MAAR,CAAe,QAAf,CAAR;AACAT,IAAIK,GAAJ,CAAQrB,QAAQyB,MAAR,CAAe,QAAf,CAAR;;AAGA;AACAT,IAAIU,GAAJ,CAAQ,OAAR,EAAiBlB,KAAKmB,IAAL,CAAUC,SAAV,EAAqB,UAArB,CAAjB;AACAZ,IAAIU,GAAJ,CAAQ,aAAR,EAAuB,KAAvB;AACAV,IAAIa,MAAJ,CAAW,MAAX,EAAmBtB,IAAIuB,UAAvB;;AAEA;AACAd,IAAIe,GAAJ,CAAQ,GAAR,EAAa,CAACC,GAAD,EAAMC,GAAN,KAAcA,IAAIC,MAAJ,CAAW,OAAX,CAA3B",
+      "file": "index.js",
+      "sourceRoot": "C:/Users/jw/Desktop/proj_CN/iotlink/vehicle_damage_detection/server",
+      "sourcesContent": [
+        "import express from 'express';\r\nimport http from 'http';\r\nimport bodyParser from 'body-parser';\r\nimport cors from 'cors';\r\nimport env from 'dotenv';\r\nimport api from './api';\r\nimport io from './socket';\r\nimport ejs from 'ejs';\r\nimport path from 'path';\r\nimport { router } from 'socketio-file-upload';\r\n\r\nenv.config();\r\n\r\nconsole.log(process.env.PORT);\r\nconst port = process.env.PORT || 5000;\r\n\r\nconst app = express();\r\nconst server = http.createServer(app).listen(port, () => {\r\n  console.log(`app is listening to port ${port}`);\r\n});\r\n// use socket.io\r\napp.io = io;\r\napp.io.attach(server);\r\napp.use(router);\r\n\r\n// Middlewares\r\napp.use(cors());\r\napp.use(bodyParser.json());\r\napp.use(bodyParser.urlencoded({extended: true}));\r\n\r\n// Serve static files\r\napp.use(express.static('static'));\r\napp.use(express.static('output'));\r\n\r\n\r\n// Set View Engine\r\napp.set('views', path.join(__dirname, '../views'));\r\napp.set('view engine', 'ejs');\r\napp.engine('html', ejs.renderFile);\r\n\r\n// app.use('/api', api);\r\napp.get('/', (req, res) => res.render('index'));"
+      ]
+    },
+    "mtime": 1605571328900
+  },
+  "{\"filename\":\"C:/Users/jw/Desktop/Redux/redux-tutorial/01_simple-action-creator.js\",\"extra\":{},\"env\":{},\"retainLines\":false,\"nonStandard\":true,\"experimental\":false,\"highlightCode\":true,\"suppressDeprecationMessages\":false,\"stage\":0,\"blacklist\":[],\"optional\":[],\"modules\":\"common\",\"moduleIds\":false,\"jsxPragma\":\"React.createElement\",\"plugins\":[],\"ignore\":[],\"code\":true,\"metadata\":true,\"ast\":true,\"comments\":true,\"compact\":\"auto\",\"keepModuleIdExtensions\":false,\"auxiliaryCommentAfter\":\"\",\"externalHelpers\":false,\"metadataUsedHelpers\":false,\"breakConfig\":true,\"sourceType\":\"module\"}:5.8.38": {
+    "metadata": {
+      "modules": {
+        "imports": [],
+        "exports": {
+          "exported": [],
+          "specifiers": []
+        }
+      },
+      "usedHelpers": []
+    },
+    "ignored": false,
+    "code": "// Tutorial 1 - simple-action-creator.js\n\n// We started to talk a little about actions in the introduction but what exactly are those \"action creators\"\n// and how are they linked to \"actions\"?\n\n// It's actually so simple that a few lines of code can explain it all!\n\n// The action creator is just a function...\n'use strict';\n\nvar actionCreator = function actionCreator() {\n    // ...that creates an action (yeah, the name action creator is pretty obvious now) and returns it\n    return {\n        type: 'AN_ACTION'\n    };\n};\n\n// So is that all? yes.\n\n// However, one thing to note is the format of the action. This is kind of a convention in flux\n// that the action is an object that contains a \"type\" property. This type allows for further\n// handling of the action. Of course, the action can also contain other properties to\n// pass any data you want.\n\n// We'll also see later that the action creator can actually return something other than an action,\n// like a function. This will be extremely useful for async action handling (more on that\n// in dispatch-async-action.js).\n\n// We can call this action creator and get an action as expected:\nconsole.log(actionCreator());\n// Output: { type: 'AN_ACTION' }\n\n// Ok, this works but it does not go anywhere...\n// What we need is to have this action be sent somewhere so that\n// anyone interested could know that something happened and could act accordingly.\n// We call this process \"Dispatching an action\".\n\n// To dispatch an action we need... a dispatch function (\"Captain obvious\").\n// And to let anyone interested know that an action happened, we need a mechanism to register\n// \"handlers\". Such \"handlers\" to actions in traditional flux application are called stores and\n// we'll see in the next section how they are called in Redux.\n\n// So far here is the flow of our application:\n// ActionCreator -> Action\n\n// Read more about actions and action creators here:\n// http://redux.js.org/docs/recipes/ReducingBoilerplate.html\n\n// Go to next tutorial: 02_about-state-and-meet-redux.js\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkM6L1VzZXJzL2p3L0Rlc2t0b3AvUmVkdXgvcmVkdXgtdHV0b3JpYWwvMDFfc2ltcGxlLWFjdGlvbi1jcmVhdG9yLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7QUFRQSxJQUFJLGFBQWEsR0FBRyxTQUFoQixhQUFhLEdBQWM7O0FBRTNCLFdBQU87QUFDSCxZQUFJLEVBQUUsV0FBVztLQUNwQixDQUFBO0NBQ0osQ0FBQTs7Ozs7Ozs7Ozs7Ozs7QUFjRCxPQUFPLENBQUMsR0FBRyxDQUFDLGFBQWEsRUFBRSxDQUFDLENBQUEiLCJmaWxlIjoiQzovVXNlcnMvancvRGVza3RvcC9SZWR1eC9yZWR1eC10dXRvcmlhbC8wMV9zaW1wbGUtYWN0aW9uLWNyZWF0b3IuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvLyBUdXRvcmlhbCAxIC0gc2ltcGxlLWFjdGlvbi1jcmVhdG9yLmpzXHJcblxyXG4vLyBXZSBzdGFydGVkIHRvIHRhbGsgYSBsaXR0bGUgYWJvdXQgYWN0aW9ucyBpbiB0aGUgaW50cm9kdWN0aW9uIGJ1dCB3aGF0IGV4YWN0bHkgYXJlIHRob3NlIFwiYWN0aW9uIGNyZWF0b3JzXCJcclxuLy8gYW5kIGhvdyBhcmUgdGhleSBsaW5rZWQgdG8gXCJhY3Rpb25zXCI/XHJcblxyXG4vLyBJdCdzIGFjdHVhbGx5IHNvIHNpbXBsZSB0aGF0IGEgZmV3IGxpbmVzIG9mIGNvZGUgY2FuIGV4cGxhaW4gaXQgYWxsIVxyXG5cclxuLy8gVGhlIGFjdGlvbiBjcmVhdG9yIGlzIGp1c3QgYSBmdW5jdGlvbi4uLlxyXG52YXIgYWN0aW9uQ3JlYXRvciA9IGZ1bmN0aW9uKCkge1xyXG4gICAgLy8gLi4udGhhdCBjcmVhdGVzIGFuIGFjdGlvbiAoeWVhaCwgdGhlIG5hbWUgYWN0aW9uIGNyZWF0b3IgaXMgcHJldHR5IG9idmlvdXMgbm93KSBhbmQgcmV0dXJucyBpdFxyXG4gICAgcmV0dXJuIHtcclxuICAgICAgICB0eXBlOiAnQU5fQUNUSU9OJ1xyXG4gICAgfVxyXG59XHJcblxyXG4vLyBTbyBpcyB0aGF0IGFsbD8geWVzLlxyXG5cclxuLy8gSG93ZXZlciwgb25lIHRoaW5nIHRvIG5vdGUgaXMgdGhlIGZvcm1hdCBvZiB0aGUgYWN0aW9uLiBUaGlzIGlzIGtpbmQgb2YgYSBjb252ZW50aW9uIGluIGZsdXhcclxuLy8gdGhhdCB0aGUgYWN0aW9uIGlzIGFuIG9iamVjdCB0aGF0IGNvbnRhaW5zIGEgXCJ0eXBlXCIgcHJvcGVydHkuIFRoaXMgdHlwZSBhbGxvd3MgZm9yIGZ1cnRoZXJcclxuLy8gaGFuZGxpbmcgb2YgdGhlIGFjdGlvbi4gT2YgY291cnNlLCB0aGUgYWN0aW9uIGNhbiBhbHNvIGNvbnRhaW4gb3RoZXIgcHJvcGVydGllcyB0b1xyXG4vLyBwYXNzIGFueSBkYXRhIHlvdSB3YW50LlxyXG5cclxuLy8gV2UnbGwgYWxzbyBzZWUgbGF0ZXIgdGhhdCB0aGUgYWN0aW9uIGNyZWF0b3IgY2FuIGFjdHVhbGx5IHJldHVybiBzb21ldGhpbmcgb3RoZXIgdGhhbiBhbiBhY3Rpb24sXHJcbi8vIGxpa2UgYSBmdW5jdGlvbi4gVGhpcyB3aWxsIGJlIGV4dHJlbWVseSB1c2VmdWwgZm9yIGFzeW5jIGFjdGlvbiBoYW5kbGluZyAobW9yZSBvbiB0aGF0XHJcbi8vIGluIGRpc3BhdGNoLWFzeW5jLWFjdGlvbi5qcykuXHJcblxyXG4vLyBXZSBjYW4gY2FsbCB0aGlzIGFjdGlvbiBjcmVhdG9yIGFuZCBnZXQgYW4gYWN0aW9uIGFzIGV4cGVjdGVkOlxyXG5jb25zb2xlLmxvZyhhY3Rpb25DcmVhdG9yKCkpXHJcbi8vIE91dHB1dDogeyB0eXBlOiAnQU5fQUNUSU9OJyB9XHJcblxyXG4vLyBPaywgdGhpcyB3b3JrcyBidXQgaXQgZG9lcyBub3QgZ28gYW55d2hlcmUuLi5cclxuLy8gV2hhdCB3ZSBuZWVkIGlzIHRvIGhhdmUgdGhpcyBhY3Rpb24gYmUgc2VudCBzb21ld2hlcmUgc28gdGhhdFxyXG4vLyBhbnlvbmUgaW50ZXJlc3RlZCBjb3VsZCBrbm93IHRoYXQgc29tZXRoaW5nIGhhcHBlbmVkIGFuZCBjb3VsZCBhY3QgYWNjb3JkaW5nbHkuXHJcbi8vIFdlIGNhbGwgdGhpcyBwcm9jZXNzIFwiRGlzcGF0Y2hpbmcgYW4gYWN0aW9uXCIuXHJcblxyXG4vLyBUbyBkaXNwYXRjaCBhbiBhY3Rpb24gd2UgbmVlZC4uLiBhIGRpc3BhdGNoIGZ1bmN0aW9uIChcIkNhcHRhaW4gb2J2aW91c1wiKS5cclxuLy8gQW5kIHRvIGxldCBhbnlvbmUgaW50ZXJlc3RlZCBrbm93IHRoYXQgYW4gYWN0aW9uIGhhcHBlbmVkLCB3ZSBuZWVkIGEgbWVjaGFuaXNtIHRvIHJlZ2lzdGVyXHJcbi8vIFwiaGFuZGxlcnNcIi4gU3VjaCBcImhhbmRsZXJzXCIgdG8gYWN0aW9ucyBpbiB0cmFkaXRpb25hbCBmbHV4IGFwcGxpY2F0aW9uIGFyZSBjYWxsZWQgc3RvcmVzIGFuZFxyXG4vLyB3ZSdsbCBzZWUgaW4gdGhlIG5leHQgc2VjdGlvbiBob3cgdGhleSBhcmUgY2FsbGVkIGluIFJlZHV4LlxyXG5cclxuLy8gU28gZmFyIGhlcmUgaXMgdGhlIGZsb3cgb2Ygb3VyIGFwcGxpY2F0aW9uOlxyXG4vLyBBY3Rpb25DcmVhdG9yIC0+IEFjdGlvblxyXG5cclxuLy8gUmVhZCBtb3JlIGFib3V0IGFjdGlvbnMgYW5kIGFjdGlvbiBjcmVhdG9ycyBoZXJlOlxyXG4vLyBodHRwOi8vcmVkdXguanMub3JnL2RvY3MvcmVjaXBlcy9SZWR1Y2luZ0JvaWxlcnBsYXRlLmh0bWxcclxuXHJcbi8vIEdvIHRvIG5leHQgdHV0b3JpYWw6IDAyX2Fib3V0LXN0YXRlLWFuZC1tZWV0LXJlZHV4LmpzXHJcbiJdfQ==",
+    "ast": null,
+    "map": {
+      "version": 3,
+      "sources": [
+        "C:/Users/jw/Desktop/Redux/redux-tutorial/01_simple-action-creator.js"
+      ],
+      "names": [],
+      "mappings": ";;;;;;;;;;AAQA,IAAI,aAAa,GAAG,SAAhB,aAAa,GAAc;;AAE3B,WAAO;AACH,YAAI,EAAE,WAAW;KACpB,CAAA;CACJ,CAAA;;;;;;;;;;;;;;AAcD,OAAO,CAAC,GAAG,CAAC,aAAa,EAAE,CAAC,CAAA",
+      "file": "C:/Users/jw/Desktop/Redux/redux-tutorial/01_simple-action-creator.js",
+      "sourcesContent": [
+        "// Tutorial 1 - simple-action-creator.js\r\n\r\n// We started to talk a little about actions in the introduction but what exactly are those \"action creators\"\r\n// and how are they linked to \"actions\"?\r\n\r\n// It's actually so simple that a few lines of code can explain it all!\r\n\r\n// The action creator is just a function...\r\nvar actionCreator = function() {\r\n    // ...that creates an action (yeah, the name action creator is pretty obvious now) and returns it\r\n    return {\r\n        type: 'AN_ACTION'\r\n    }\r\n}\r\n\r\n// So is that all? yes.\r\n\r\n// However, one thing to note is the format of the action. This is kind of a convention in flux\r\n// that the action is an object that contains a \"type\" property. This type allows for further\r\n// handling of the action. Of course, the action can also contain other properties to\r\n// pass any data you want.\r\n\r\n// We'll also see later that the action creator can actually return something other than an action,\r\n// like a function. This will be extremely useful for async action handling (more on that\r\n// in dispatch-async-action.js).\r\n\r\n// We can call this action creator and get an action as expected:\r\nconsole.log(actionCreator())\r\n// Output: { type: 'AN_ACTION' }\r\n\r\n// Ok, this works but it does not go anywhere...\r\n// What we need is to have this action be sent somewhere so that\r\n// anyone interested could know that something happened and could act accordingly.\r\n// We call this process \"Dispatching an action\".\r\n\r\n// To dispatch an action we need... a dispatch function (\"Captain obvious\").\r\n// And to let anyone interested know that an action happened, we need a mechanism to register\r\n// \"handlers\". Such \"handlers\" to actions in traditional flux application are called stores and\r\n// we'll see in the next section how they are called in Redux.\r\n\r\n// So far here is the flow of our application:\r\n// ActionCreator -> Action\r\n\r\n// Read more about actions and action creators here:\r\n// http://redux.js.org/docs/recipes/ReducingBoilerplate.html\r\n\r\n// Go to next tutorial: 02_about-state-and-meet-redux.js\r\n"
+      ]
+    },
+    "mtime": 1606783400578
+  },
+  "{\"filename\":\"C:/Users/jw/Desktop/Redux/redux-tutorial/02_about-state-and-meet-redux.js\",\"extra\":{},\"env\":{},\"retainLines\":false,\"nonStandard\":true,\"experimental\":false,\"highlightCode\":true,\"suppressDeprecationMessages\":false,\"stage\":0,\"blacklist\":[],\"optional\":[],\"modules\":\"common\",\"moduleIds\":false,\"jsxPragma\":\"React.createElement\",\"plugins\":[],\"ignore\":[],\"code\":true,\"metadata\":true,\"ast\":true,\"comments\":true,\"compact\":\"auto\",\"keepModuleIdExtensions\":false,\"auxiliaryCommentAfter\":\"\",\"externalHelpers\":false,\"metadataUsedHelpers\":false,\"breakConfig\":true,\"sourceType\":\"module\"}:5.8.38": {
+    "metadata": {
+      "modules": {
+        "imports": [
+          {
+            "source": "redux",
+            "imported": [
+              "createStore"
+            ],
+            "specifiers": [
+              {
+                "kind": "named",
+                "imported": "createStore",
+                "local": "createStore"
+              }
+            ]
+          }
+        ],
+        "exports": {
+          "exported": [],
+          "specifiers": []
+        }
+      },
+      "usedHelpers": []
+    },
+    "ignored": false,
+    "code": "// Tutorial 02 - about-state-and-meet-redux.js\n\n// Sometimes the actions that we'll handle in our application will not only inform us\n// that something happened but also tell us that data needs to be updated.\n\n// This is actually quite a big challenge in any app.\n// Where do I keep all the data regarding my application along its lifetime?\n// How do I handle modification of such data?\n// How do I propagate modifications to all parts of my application?\n\n// Here comes Redux.\n\n// Redux (https://github.com/reactjs/redux) is a \"predictable state container for JavaScript apps\"\n\n// Let's review the above questions and reply to them with\n// Redux vocabulary (flux vocabulary too for some of them):\n\n// Where do I keep all the data regarding my application along its lifetime?\n//     You keep it the way you want (JS object, array, Immutable structure, ...).\n//     Data of your application will be called state. This makes sense since we're talking about\n//     all the application's data that will evolve over time, it's really the application's state.\n//     But you hand it over to Redux (Redux is a \"state container\", remember?).\n// How do I handle data modifications?\n//     Using reducers (called \"stores\" in traditional flux).\n//     A reducer is a subscriber to actions.\n//     A reducer is just a function that receives the current state of your application, the action,\n//     and returns a new state modified (or reduced as they call it)\n// How do I propagate modifications to all parts of my application?\n//     Using subscribers to state's modifications.\n\n// Redux ties all this together for you.\n// To sum up, Redux will provide you:\n//     1) a place to put your application state\n//     2) a mechanism to dispatch actions to modifiers of your application state, AKA reducers\n//     3) a mechanism to subscribe to state updates\n\n// The Redux instance is called a store and can be created like this:\n/*\r\n    import { createStore } from 'redux'\r\n    var store = createStore()\r\n*/\n\n// But if you run the code above, you'll notice that it throws an error:\n//     Error: Invariant Violation: Expected the reducer to be a function.\n\n// That's because createStore expects a function that will allow it to reduce your state.\n\n// Let's try again\n\n'use strict';\n\nvar _redux = require('redux');\n\nvar store = (0, _redux.createStore)(function () {});\n\n// Seems good for now...\n\n// Go to next tutorial: 03_simple-reducer.js\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkM6L1VzZXJzL2p3L0Rlc2t0b3AvUmVkdXgvcmVkdXgtdHV0b3JpYWwvMDJfYWJvdXQtc3RhdGUtYW5kLW1lZXQtcmVkdXguanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O3FCQWlENEIsT0FBTzs7QUFFbkMsSUFBSSxLQUFLLEdBQUcsd0JBQVksWUFBTSxFQUFFLENBQUMsQ0FBQSIsImZpbGUiOiJDOi9Vc2Vycy9qdy9EZXNrdG9wL1JlZHV4L3JlZHV4LXR1dG9yaWFsLzAyX2Fib3V0LXN0YXRlLWFuZC1tZWV0LXJlZHV4LmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gVHV0b3JpYWwgMDIgLSBhYm91dC1zdGF0ZS1hbmQtbWVldC1yZWR1eC5qc1xyXG5cclxuLy8gU29tZXRpbWVzIHRoZSBhY3Rpb25zIHRoYXQgd2UnbGwgaGFuZGxlIGluIG91ciBhcHBsaWNhdGlvbiB3aWxsIG5vdCBvbmx5IGluZm9ybSB1c1xyXG4vLyB0aGF0IHNvbWV0aGluZyBoYXBwZW5lZCBidXQgYWxzbyB0ZWxsIHVzIHRoYXQgZGF0YSBuZWVkcyB0byBiZSB1cGRhdGVkLlxyXG5cclxuLy8gVGhpcyBpcyBhY3R1YWxseSBxdWl0ZSBhIGJpZyBjaGFsbGVuZ2UgaW4gYW55IGFwcC5cclxuLy8gV2hlcmUgZG8gSSBrZWVwIGFsbCB0aGUgZGF0YSByZWdhcmRpbmcgbXkgYXBwbGljYXRpb24gYWxvbmcgaXRzIGxpZmV0aW1lP1xyXG4vLyBIb3cgZG8gSSBoYW5kbGUgbW9kaWZpY2F0aW9uIG9mIHN1Y2ggZGF0YT9cclxuLy8gSG93IGRvIEkgcHJvcGFnYXRlIG1vZGlmaWNhdGlvbnMgdG8gYWxsIHBhcnRzIG9mIG15IGFwcGxpY2F0aW9uP1xyXG5cclxuLy8gSGVyZSBjb21lcyBSZWR1eC5cclxuXHJcbi8vIFJlZHV4IChodHRwczovL2dpdGh1Yi5jb20vcmVhY3Rqcy9yZWR1eCkgaXMgYSBcInByZWRpY3RhYmxlIHN0YXRlIGNvbnRhaW5lciBmb3IgSmF2YVNjcmlwdCBhcHBzXCJcclxuXHJcbi8vIExldCdzIHJldmlldyB0aGUgYWJvdmUgcXVlc3Rpb25zIGFuZCByZXBseSB0byB0aGVtIHdpdGhcclxuLy8gUmVkdXggdm9jYWJ1bGFyeSAoZmx1eCB2b2NhYnVsYXJ5IHRvbyBmb3Igc29tZSBvZiB0aGVtKTpcclxuXHJcbi8vIFdoZXJlIGRvIEkga2VlcCBhbGwgdGhlIGRhdGEgcmVnYXJkaW5nIG15IGFwcGxpY2F0aW9uIGFsb25nIGl0cyBsaWZldGltZT9cclxuLy8gICAgIFlvdSBrZWVwIGl0IHRoZSB3YXkgeW91IHdhbnQgKEpTIG9iamVjdCwgYXJyYXksIEltbXV0YWJsZSBzdHJ1Y3R1cmUsIC4uLikuXHJcbi8vICAgICBEYXRhIG9mIHlvdXIgYXBwbGljYXRpb24gd2lsbCBiZSBjYWxsZWQgc3RhdGUuIFRoaXMgbWFrZXMgc2Vuc2Ugc2luY2Ugd2UncmUgdGFsa2luZyBhYm91dFxyXG4vLyAgICAgYWxsIHRoZSBhcHBsaWNhdGlvbidzIGRhdGEgdGhhdCB3aWxsIGV2b2x2ZSBvdmVyIHRpbWUsIGl0J3MgcmVhbGx5IHRoZSBhcHBsaWNhdGlvbidzIHN0YXRlLlxyXG4vLyAgICAgQnV0IHlvdSBoYW5kIGl0IG92ZXIgdG8gUmVkdXggKFJlZHV4IGlzIGEgXCJzdGF0ZSBjb250YWluZXJcIiwgcmVtZW1iZXI/KS5cclxuLy8gSG93IGRvIEkgaGFuZGxlIGRhdGEgbW9kaWZpY2F0aW9ucz9cclxuLy8gICAgIFVzaW5nIHJlZHVjZXJzIChjYWxsZWQgXCJzdG9yZXNcIiBpbiB0cmFkaXRpb25hbCBmbHV4KS5cclxuLy8gICAgIEEgcmVkdWNlciBpcyBhIHN1YnNjcmliZXIgdG8gYWN0aW9ucy5cclxuLy8gICAgIEEgcmVkdWNlciBpcyBqdXN0IGEgZnVuY3Rpb24gdGhhdCByZWNlaXZlcyB0aGUgY3VycmVudCBzdGF0ZSBvZiB5b3VyIGFwcGxpY2F0aW9uLCB0aGUgYWN0aW9uLFxyXG4vLyAgICAgYW5kIHJldHVybnMgYSBuZXcgc3RhdGUgbW9kaWZpZWQgKG9yIHJlZHVjZWQgYXMgdGhleSBjYWxsIGl0KVxyXG4vLyBIb3cgZG8gSSBwcm9wYWdhdGUgbW9kaWZpY2F0aW9ucyB0byBhbGwgcGFydHMgb2YgbXkgYXBwbGljYXRpb24/XHJcbi8vICAgICBVc2luZyBzdWJzY3JpYmVycyB0byBzdGF0ZSdzIG1vZGlmaWNhdGlvbnMuXHJcblxyXG4vLyBSZWR1eCB0aWVzIGFsbCB0aGlzIHRvZ2V0aGVyIGZvciB5b3UuXHJcbi8vIFRvIHN1bSB1cCwgUmVkdXggd2lsbCBwcm92aWRlIHlvdTpcclxuLy8gICAgIDEpIGEgcGxhY2UgdG8gcHV0IHlvdXIgYXBwbGljYXRpb24gc3RhdGVcclxuLy8gICAgIDIpIGEgbWVjaGFuaXNtIHRvIGRpc3BhdGNoIGFjdGlvbnMgdG8gbW9kaWZpZXJzIG9mIHlvdXIgYXBwbGljYXRpb24gc3RhdGUsIEFLQSByZWR1Y2Vyc1xyXG4vLyAgICAgMykgYSBtZWNoYW5pc20gdG8gc3Vic2NyaWJlIHRvIHN0YXRlIHVwZGF0ZXNcclxuXHJcbi8vIFRoZSBSZWR1eCBpbnN0YW5jZSBpcyBjYWxsZWQgYSBzdG9yZSBhbmQgY2FuIGJlIGNyZWF0ZWQgbGlrZSB0aGlzOlxyXG4vKlxyXG4gICAgaW1wb3J0IHsgY3JlYXRlU3RvcmUgfSBmcm9tICdyZWR1eCdcclxuICAgIHZhciBzdG9yZSA9IGNyZWF0ZVN0b3JlKClcclxuKi9cclxuXHJcbi8vIEJ1dCBpZiB5b3UgcnVuIHRoZSBjb2RlIGFib3ZlLCB5b3UnbGwgbm90aWNlIHRoYXQgaXQgdGhyb3dzIGFuIGVycm9yOlxyXG4vLyAgICAgRXJyb3I6IEludmFyaWFudCBWaW9sYXRpb246IEV4cGVjdGVkIHRoZSByZWR1Y2VyIHRvIGJlIGEgZnVuY3Rpb24uXHJcblxyXG4vLyBUaGF0J3MgYmVjYXVzZSBjcmVhdGVTdG9yZSBleHBlY3RzIGEgZnVuY3Rpb24gdGhhdCB3aWxsIGFsbG93IGl0IHRvIHJlZHVjZSB5b3VyIHN0YXRlLlxyXG5cclxuLy8gTGV0J3MgdHJ5IGFnYWluXHJcblxyXG5pbXBvcnQgeyBjcmVhdGVTdG9yZSB9IGZyb20gJ3JlZHV4J1xyXG5cclxudmFyIHN0b3JlID0gY3JlYXRlU3RvcmUoKCkgPT4ge30pXHJcblxyXG4vLyBTZWVtcyBnb29kIGZvciBub3cuLi5cclxuXHJcbi8vIEdvIHRvIG5leHQgdHV0b3JpYWw6IDAzX3NpbXBsZS1yZWR1Y2VyLmpzXHJcbiJdfQ==",
+    "ast": null,
+    "map": {
+      "version": 3,
+      "sources": [
+        "C:/Users/jw/Desktop/Redux/redux-tutorial/02_about-state-and-meet-redux.js"
+      ],
+      "names": [],
+      "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;qBAiD4B,OAAO;;AAEnC,IAAI,KAAK,GAAG,wBAAY,YAAM,EAAE,CAAC,CAAA",
+      "file": "C:/Users/jw/Desktop/Redux/redux-tutorial/02_about-state-and-meet-redux.js",
+      "sourcesContent": [
+        "// Tutorial 02 - about-state-and-meet-redux.js\r\n\r\n// Sometimes the actions that we'll handle in our application will not only inform us\r\n// that something happened but also tell us that data needs to be updated.\r\n\r\n// This is actually quite a big challenge in any app.\r\n// Where do I keep all the data regarding my application along its lifetime?\r\n// How do I handle modification of such data?\r\n// How do I propagate modifications to all parts of my application?\r\n\r\n// Here comes Redux.\r\n\r\n// Redux (https://github.com/reactjs/redux) is a \"predictable state container for JavaScript apps\"\r\n\r\n// Let's review the above questions and reply to them with\r\n// Redux vocabulary (flux vocabulary too for some of them):\r\n\r\n// Where do I keep all the data regarding my application along its lifetime?\r\n//     You keep it the way you want (JS object, array, Immutable structure, ...).\r\n//     Data of your application will be called state. This makes sense since we're talking about\r\n//     all the application's data that will evolve over time, it's really the application's state.\r\n//     But you hand it over to Redux (Redux is a \"state container\", remember?).\r\n// How do I handle data modifications?\r\n//     Using reducers (called \"stores\" in traditional flux).\r\n//     A reducer is a subscriber to actions.\r\n//     A reducer is just a function that receives the current state of your application, the action,\r\n//     and returns a new state modified (or reduced as they call it)\r\n// How do I propagate modifications to all parts of my application?\r\n//     Using subscribers to state's modifications.\r\n\r\n// Redux ties all this together for you.\r\n// To sum up, Redux will provide you:\r\n//     1) a place to put your application state\r\n//     2) a mechanism to dispatch actions to modifiers of your application state, AKA reducers\r\n//     3) a mechanism to subscribe to state updates\r\n\r\n// The Redux instance is called a store and can be created like this:\r\n/*\r\n    import { createStore } from 'redux'\r\n    var store = createStore()\r\n*/\r\n\r\n// But if you run the code above, you'll notice that it throws an error:\r\n//     Error: Invariant Violation: Expected the reducer to be a function.\r\n\r\n// That's because createStore expects a function that will allow it to reduce your state.\r\n\r\n// Let's try again\r\n\r\nimport { createStore } from 'redux'\r\n\r\nvar store = createStore(() => {})\r\n\r\n// Seems good for now...\r\n\r\n// Go to next tutorial: 03_simple-reducer.js\r\n"
+      ]
+    },
+    "mtime": 1606783400579
+  },
+  "{\"filename\":\"C:/Users/jw/Desktop/Redux/redux-tutorial/03_simple-reducer.js\",\"extra\":{},\"env\":{},\"retainLines\":false,\"nonStandard\":true,\"experimental\":false,\"highlightCode\":true,\"suppressDeprecationMessages\":false,\"stage\":0,\"blacklist\":[],\"optional\":[],\"modules\":\"common\",\"moduleIds\":false,\"jsxPragma\":\"React.createElement\",\"plugins\":[],\"ignore\":[],\"code\":true,\"metadata\":true,\"ast\":true,\"comments\":true,\"compact\":\"auto\",\"keepModuleIdExtensions\":false,\"auxiliaryCommentAfter\":\"\",\"externalHelpers\":false,\"metadataUsedHelpers\":false,\"breakConfig\":true,\"sourceType\":\"module\"}:5.8.38": {
+    "metadata": {
+      "modules": {
+        "imports": [
+          {
+            "source": "redux",
+            "imported": [
+              "createStore"
+            ],
+            "specifiers": [
+              {
+                "kind": "named",
+                "imported": "createStore",
+                "local": "createStore"
+              }
+            ]
+          }
+        ],
+        "exports": {
+          "exported": [],
+          "specifiers": []
+        }
+      },
+      "usedHelpers": []
+    },
+    "ignored": false,
+    "code": "// Tutorial 03 - simple-reducer.js\n\n// Now that we know how to create a Redux instance that will hold the state of our application\n// we will focus on those reducer functions that will allow us to transform this state.\n\n// A word about reducer VS store:\n// As you may have noticed, in the flux diagram shown in the introduction, we had \"Store\", not\n// \"Reducer\" like Redux is expecting. So how exactly do Store and Reducer differ?\n// It's more simple than you could imagine: A Store keeps your data in it while a Reducer doesn't.\n// So in traditional flux, stores hold state in them while in Redux, each time a reducer is\n// called, it is passed the state that needs to be updated. This way, Redux's stores became\n// \"stateless stores\" and were renamed reducers.\n\n// As stated before, when creating a Redux instance you must give it a reducer function...\n\n'use strict';\n\nvar _redux = require('redux');\n\nvar store_0 = (0, _redux.createStore)(function () {});\n\n// ... so that Redux can call this function on your application state each time an action occurs.\n// Giving reducer(s) to createStore is exactly how Redux registers the action \"handlers\" (read reducers) we\n// were talking about in section 01_simple-action-creator.js.\n\n// Let's put some log in our reducer\n\nvar reducer = function reducer() {\n    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {\n        args[_key] = arguments[_key];\n    }\n\n    console.log('Reducer was called with args', args);\n};\n\nvar store_1 = (0, _redux.createStore)(reducer);\n\n// Output: Reducer was called with args [ undefined, { type: '@@redux/INIT' } ]\n\n// Did you see that? Our reducer is actually called even if we didn't dispatch any action...\n// That's because to initialize the state of the application,\n// Redux actually dispatches an init action ({ type: '@@redux/INIT' })\n\n// When called, a reducer is given those parameters: (state, action)\n// It's then very logical that at an application initialization, the state, not being\n// initialized yet, is \"undefined\"\n\n// But then what is the state of our application after Redux sends its \"init\" action?\n\n// Go to next tutorial: 04_get-state.js\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkM6L1VzZXJzL2p3L0Rlc2t0b3AvUmVkdXgvcmVkdXgtdHV0b3JpYWwvMDNfc2ltcGxlLXJlZHVjZXIuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7cUJBZTRCLE9BQU87O0FBRW5DLElBQUksT0FBTyxHQUFHLHdCQUFZLFlBQU0sRUFBRSxDQUFDLENBQUE7Ozs7Ozs7O0FBUW5DLElBQUksT0FBTyxHQUFHLFNBQVYsT0FBTyxHQUFzQjtzQ0FBTixJQUFJO0FBQUosWUFBSTs7O0FBQzNCLFdBQU8sQ0FBQyxHQUFHLENBQUMsOEJBQThCLEVBQUUsSUFBSSxDQUFDLENBQUE7Q0FDcEQsQ0FBQTs7QUFFRCxJQUFJLE9BQU8sR0FBRyx3QkFBWSxPQUFPLENBQUMsQ0FBQSIsImZpbGUiOiJDOi9Vc2Vycy9qdy9EZXNrdG9wL1JlZHV4L3JlZHV4LXR1dG9yaWFsLzAzX3NpbXBsZS1yZWR1Y2VyLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gVHV0b3JpYWwgMDMgLSBzaW1wbGUtcmVkdWNlci5qc1xyXG5cclxuLy8gTm93IHRoYXQgd2Uga25vdyBob3cgdG8gY3JlYXRlIGEgUmVkdXggaW5zdGFuY2UgdGhhdCB3aWxsIGhvbGQgdGhlIHN0YXRlIG9mIG91ciBhcHBsaWNhdGlvblxyXG4vLyB3ZSB3aWxsIGZvY3VzIG9uIHRob3NlIHJlZHVjZXIgZnVuY3Rpb25zIHRoYXQgd2lsbCBhbGxvdyB1cyB0byB0cmFuc2Zvcm0gdGhpcyBzdGF0ZS5cclxuXHJcbi8vIEEgd29yZCBhYm91dCByZWR1Y2VyIFZTIHN0b3JlOlxyXG4vLyBBcyB5b3UgbWF5IGhhdmUgbm90aWNlZCwgaW4gdGhlIGZsdXggZGlhZ3JhbSBzaG93biBpbiB0aGUgaW50cm9kdWN0aW9uLCB3ZSBoYWQgXCJTdG9yZVwiLCBub3RcclxuLy8gXCJSZWR1Y2VyXCIgbGlrZSBSZWR1eCBpcyBleHBlY3RpbmcuIFNvIGhvdyBleGFjdGx5IGRvIFN0b3JlIGFuZCBSZWR1Y2VyIGRpZmZlcj9cclxuLy8gSXQncyBtb3JlIHNpbXBsZSB0aGFuIHlvdSBjb3VsZCBpbWFnaW5lOiBBIFN0b3JlIGtlZXBzIHlvdXIgZGF0YSBpbiBpdCB3aGlsZSBhIFJlZHVjZXIgZG9lc24ndC5cclxuLy8gU28gaW4gdHJhZGl0aW9uYWwgZmx1eCwgc3RvcmVzIGhvbGQgc3RhdGUgaW4gdGhlbSB3aGlsZSBpbiBSZWR1eCwgZWFjaCB0aW1lIGEgcmVkdWNlciBpc1xyXG4vLyBjYWxsZWQsIGl0IGlzIHBhc3NlZCB0aGUgc3RhdGUgdGhhdCBuZWVkcyB0byBiZSB1cGRhdGVkLiBUaGlzIHdheSwgUmVkdXgncyBzdG9yZXMgYmVjYW1lXHJcbi8vIFwic3RhdGVsZXNzIHN0b3Jlc1wiIGFuZCB3ZXJlIHJlbmFtZWQgcmVkdWNlcnMuXHJcblxyXG4vLyBBcyBzdGF0ZWQgYmVmb3JlLCB3aGVuIGNyZWF0aW5nIGEgUmVkdXggaW5zdGFuY2UgeW91IG11c3QgZ2l2ZSBpdCBhIHJlZHVjZXIgZnVuY3Rpb24uLi5cclxuXHJcbmltcG9ydCB7IGNyZWF0ZVN0b3JlIH0gZnJvbSAncmVkdXgnXHJcblxyXG52YXIgc3RvcmVfMCA9IGNyZWF0ZVN0b3JlKCgpID0+IHt9KVxyXG5cclxuLy8gLi4uIHNvIHRoYXQgUmVkdXggY2FuIGNhbGwgdGhpcyBmdW5jdGlvbiBvbiB5b3VyIGFwcGxpY2F0aW9uIHN0YXRlIGVhY2ggdGltZSBhbiBhY3Rpb24gb2NjdXJzLlxyXG4vLyBHaXZpbmcgcmVkdWNlcihzKSB0byBjcmVhdGVTdG9yZSBpcyBleGFjdGx5IGhvdyBSZWR1eCByZWdpc3RlcnMgdGhlIGFjdGlvbiBcImhhbmRsZXJzXCIgKHJlYWQgcmVkdWNlcnMpIHdlXHJcbi8vIHdlcmUgdGFsa2luZyBhYm91dCBpbiBzZWN0aW9uIDAxX3NpbXBsZS1hY3Rpb24tY3JlYXRvci5qcy5cclxuXHJcbi8vIExldCdzIHB1dCBzb21lIGxvZyBpbiBvdXIgcmVkdWNlclxyXG5cclxudmFyIHJlZHVjZXIgPSBmdW5jdGlvbiAoLi4uYXJncykge1xyXG4gICAgY29uc29sZS5sb2coJ1JlZHVjZXIgd2FzIGNhbGxlZCB3aXRoIGFyZ3MnLCBhcmdzKVxyXG59XHJcblxyXG52YXIgc3RvcmVfMSA9IGNyZWF0ZVN0b3JlKHJlZHVjZXIpXHJcblxyXG4vLyBPdXRwdXQ6IFJlZHVjZXIgd2FzIGNhbGxlZCB3aXRoIGFyZ3MgWyB1bmRlZmluZWQsIHsgdHlwZTogJ0BAcmVkdXgvSU5JVCcgfSBdXHJcblxyXG4vLyBEaWQgeW91IHNlZSB0aGF0PyBPdXIgcmVkdWNlciBpcyBhY3R1YWxseSBjYWxsZWQgZXZlbiBpZiB3ZSBkaWRuJ3QgZGlzcGF0Y2ggYW55IGFjdGlvbi4uLlxyXG4vLyBUaGF0J3MgYmVjYXVzZSB0byBpbml0aWFsaXplIHRoZSBzdGF0ZSBvZiB0aGUgYXBwbGljYXRpb24sXHJcbi8vIFJlZHV4IGFjdHVhbGx5IGRpc3BhdGNoZXMgYW4gaW5pdCBhY3Rpb24gKHsgdHlwZTogJ0BAcmVkdXgvSU5JVCcgfSlcclxuXHJcbi8vIFdoZW4gY2FsbGVkLCBhIHJlZHVjZXIgaXMgZ2l2ZW4gdGhvc2UgcGFyYW1ldGVyczogKHN0YXRlLCBhY3Rpb24pXHJcbi8vIEl0J3MgdGhlbiB2ZXJ5IGxvZ2ljYWwgdGhhdCBhdCBhbiBhcHBsaWNhdGlvbiBpbml0aWFsaXphdGlvbiwgdGhlIHN0YXRlLCBub3QgYmVpbmdcclxuLy8gaW5pdGlhbGl6ZWQgeWV0LCBpcyBcInVuZGVmaW5lZFwiXHJcblxyXG4vLyBCdXQgdGhlbiB3aGF0IGlzIHRoZSBzdGF0ZSBvZiBvdXIgYXBwbGljYXRpb24gYWZ0ZXIgUmVkdXggc2VuZHMgaXRzIFwiaW5pdFwiIGFjdGlvbj9cclxuXHJcbi8vIEdvIHRvIG5leHQgdHV0b3JpYWw6IDA0X2dldC1zdGF0ZS5qc1xyXG4iXX0=",
+    "ast": null,
+    "map": {
+      "version": 3,
+      "sources": [
+        "C:/Users/jw/Desktop/Redux/redux-tutorial/03_simple-reducer.js"
+      ],
+      "names": [],
+      "mappings": ";;;;;;;;;;;;;;;;;qBAe4B,OAAO;;AAEnC,IAAI,OAAO,GAAG,wBAAY,YAAM,EAAE,CAAC,CAAA;;;;;;;;AAQnC,IAAI,OAAO,GAAG,SAAV,OAAO,GAAsB;sCAAN,IAAI;AAAJ,YAAI;;;AAC3B,WAAO,CAAC,GAAG,CAAC,8BAA8B,EAAE,IAAI,CAAC,CAAA;CACpD,CAAA;;AAED,IAAI,OAAO,GAAG,wBAAY,OAAO,CAAC,CAAA",
+      "file": "C:/Users/jw/Desktop/Redux/redux-tutorial/03_simple-reducer.js",
+      "sourcesContent": [
+        "// Tutorial 03 - simple-reducer.js\r\n\r\n// Now that we know how to create a Redux instance that will hold the state of our application\r\n// we will focus on those reducer functions that will allow us to transform this state.\r\n\r\n// A word about reducer VS store:\r\n// As you may have noticed, in the flux diagram shown in the introduction, we had \"Store\", not\r\n// \"Reducer\" like Redux is expecting. So how exactly do Store and Reducer differ?\r\n// It's more simple than you could imagine: A Store keeps your data in it while a Reducer doesn't.\r\n// So in traditional flux, stores hold state in them while in Redux, each time a reducer is\r\n// called, it is passed the state that needs to be updated. This way, Redux's stores became\r\n// \"stateless stores\" and were renamed reducers.\r\n\r\n// As stated before, when creating a Redux instance you must give it a reducer function...\r\n\r\nimport { createStore } from 'redux'\r\n\r\nvar store_0 = createStore(() => {})\r\n\r\n// ... so that Redux can call this function on your application state each time an action occurs.\r\n// Giving reducer(s) to createStore is exactly how Redux registers the action \"handlers\" (read reducers) we\r\n// were talking about in section 01_simple-action-creator.js.\r\n\r\n// Let's put some log in our reducer\r\n\r\nvar reducer = function (...args) {\r\n    console.log('Reducer was called with args', args)\r\n}\r\n\r\nvar store_1 = createStore(reducer)\r\n\r\n// Output: Reducer was called with args [ undefined, { type: '@@redux/INIT' } ]\r\n\r\n// Did you see that? Our reducer is actually called even if we didn't dispatch any action...\r\n// That's because to initialize the state of the application,\r\n// Redux actually dispatches an init action ({ type: '@@redux/INIT' })\r\n\r\n// When called, a reducer is given those parameters: (state, action)\r\n// It's then very logical that at an application initialization, the state, not being\r\n// initialized yet, is \"undefined\"\r\n\r\n// But then what is the state of our application after Redux sends its \"init\" action?\r\n\r\n// Go to next tutorial: 04_get-state.js\r\n"
+      ]
+    },
+    "mtime": 1606783400579
+  },
+  "{\"filename\":\"C:/Users/jw/Desktop/learn-redux-saga/redux-saga-beginner-tutorial/sagas.spec.js\",\"env\":{\"development\":{\"plugins\":[]}},\"retainLines\":false,\"highlightCode\":true,\"suppressDeprecationMessages\":false,\"presets\":[],\"plugins\":[[[],null],[[],null],[[],null],[[],null],[[],null],[[],null],[[],null],[[],null],[[],null],[[],null],[[],null],[[],null],[[],{\"loose\":false,\"spec\":false}],[[],null],[[],null],[[],{\"spec\":false}],[[],null],[[],{\"loose\":false}],[[],null],[[],null],[[],null],[[],{\"loose\":false}],[[],{\"loose\":false}],[[],null],[[],null],[[],null],[[],{\"loose\":false}],[[],null],[[],{\"loose\":false}],[[],null],[[],null],[[],{\"loose\":false}],[[],{\"async\":false,\"asyncGenerators\":false}]],\"ignore\":[],\"code\":true,\"metadata\":true,\"ast\":true,\"comments\":true,\"compact\":\"auto\",\"minified\":false,\"sourceRoot\":\"C:/Users/jw/Desktop/learn-redux-saga/redux-saga-beginner-tutorial\",\"babelrc\":true,\"sourceType\":\"module\",\"moduleIds\":false,\"passPerPreset\":false,\"parserOpts\":false,\"generatorOpts\":false}:6.26.3": {
+    "metadata": {
+      "usedHelpers": [
+        "interopRequireDefault"
+      ],
+      "marked": [],
+      "modules": {
+        "imports": [
+          {
+            "source": "tape",
+            "imported": [
+              "default"
+            ],
+            "specifiers": [
+              {
+                "kind": "named",
+                "imported": "default",
+                "local": "test"
+              }
+            ]
+          },
+          {
+            "source": "redux-saga/effects",
+            "imported": [
+              "put",
+              "call"
+            ],
+            "specifiers": [
+              {
+                "kind": "named",
+                "imported": "put",
+                "local": "put"
+              },
+              {
+                "kind": "named",
+                "imported": "call",
+                "local": "call"
+              }
+            ]
+          },
+          {
+            "source": "redux-saga",
+            "imported": [
+              "delay"
+            ],
+            "specifiers": [
+              {
+                "kind": "named",
+                "imported": "delay",
+                "local": "delay"
+              }
+            ]
+          },
+          {
+            "source": "./sagas",
+            "imported": [
+              "incrementAsync"
+            ],
+            "specifiers": [
+              {
+                "kind": "named",
+                "imported": "incrementAsync",
+                "local": "incrementAsync"
+              }
+            ]
+          }
+        ],
+        "exports": {
+          "exported": [],
+          "specifiers": []
+        }
+      }
+    },
+    "options": {
+      "filename": "C:/Users/jw/Desktop/learn-redux-saga/redux-saga-beginner-tutorial/sagas.spec.js",
+      "filenameRelative": "C:/Users/jw/Desktop/learn-redux-saga/redux-saga-beginner-tutorial/sagas.spec.js",
+      "env": {},
+      "retainLines": false,
+      "highlightCode": true,
+      "suppressDeprecationMessages": false,
+      "presets": [],
+      "plugins": [
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          {
+            "loose": false,
+            "spec": false
+          }
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          {
+            "spec": false
+          }
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          {
+            "loose": false
+          }
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          {
+            "loose": false
+          }
+        ],
+        [
+          [],
+          {
+            "loose": false
+          }
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          {
+            "loose": false
+          }
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          {
+            "loose": false
+          }
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          {
+            "loose": false
+          }
+        ],
+        [
+          [],
+          {
+            "async": false,
+            "asyncGenerators": false
+          }
+        ]
+      ],
+      "ignore": [],
+      "code": true,
+      "metadata": true,
+      "ast": false,
+      "comments": true,
+      "compact": "auto",
+      "minified": false,
+      "sourceMaps": "both",
+      "sourceMapTarget": "sagas.spec.js",
+      "sourceFileName": "sagas.spec.js",
+      "sourceRoot": "C:/Users/jw/Desktop/learn-redux-saga/redux-saga-beginner-tutorial",
+      "babelrc": false,
+      "sourceType": "module",
+      "moduleRoot": "C:/Users/jw/Desktop/learn-redux-saga/redux-saga-beginner-tutorial",
+      "moduleIds": false,
+      "passPerPreset": false,
+      "parserOpts": false,
+      "generatorOpts": false,
+      "basename": "sagas.spec"
+    },
+    "ignored": false,
+    "code": "\"use strict\";\n\nvar _tape = require(\"tape\");\n\nvar _tape2 = _interopRequireDefault(_tape);\n\nvar _effects = require(\"redux-saga/effects\");\n\nvar _reduxSaga = require(\"redux-saga\");\n\nvar _sagas = require(\"./sagas\");\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\n(0, _tape2.default)(\"incrementAsync Saga test\", function (assert) {\n  var gen = (0, _sagas.incrementAsync)();\n\n  assert.deepEqual(gen.next().value, (0, _effects.call)(_reduxSaga.delay, 1000), \"incrementAsync Saga must call delay\");\n  assert.deepEqual(gen.next().value, (0, _effects.put)({ type: \"INCREMENT\" }), \"incrementAsync Saga must dispatch INCREMENT action\");\n  assert.deepEqual(gen.next(), { done: true, value: undefined }, \"incrementAsync Saga must be done\");\n\n  assert.end();\n});\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNhZ2FzLnNwZWMuanMiXSwibmFtZXMiOlsiYXNzZXJ0IiwiZ2VuIiwiZGVlcEVxdWFsIiwibmV4dCIsInZhbHVlIiwiZGVsYXkiLCJ0eXBlIiwiZG9uZSIsInVuZGVmaW5lZCIsImVuZCJdLCJtYXBwaW5ncyI6Ijs7QUFBQTs7OztBQUVBOztBQUNBOztBQUNBOzs7O0FBRUEsb0JBQUssMEJBQUwsRUFBaUMsVUFBQ0EsTUFBRCxFQUFZO0FBQzNDLE1BQU1DLE1BQU0sNEJBQVo7O0FBRUFELFNBQU9FLFNBQVAsQ0FDRUQsSUFBSUUsSUFBSixHQUFXQyxLQURiLEVBRUUsbUJBQUtDLGdCQUFMLEVBQVksSUFBWixDQUZGLEVBR0UscUNBSEY7QUFLQUwsU0FBT0UsU0FBUCxDQUNFRCxJQUFJRSxJQUFKLEdBQVdDLEtBRGIsRUFFRSxrQkFBSSxFQUFFRSxNQUFNLFdBQVIsRUFBSixDQUZGLEVBR0Usb0RBSEY7QUFLQU4sU0FBT0UsU0FBUCxDQUNFRCxJQUFJRSxJQUFKLEVBREYsRUFFRSxFQUFFSSxNQUFNLElBQVIsRUFBY0gsT0FBT0ksU0FBckIsRUFGRixFQUdFLGtDQUhGOztBQU1BUixTQUFPUyxHQUFQO0FBQ0QsQ0FwQkQiLCJmaWxlIjoic2FnYXMuc3BlYy5qcyIsInNvdXJjZVJvb3QiOiJDOi9Vc2Vycy9qdy9EZXNrdG9wL2xlYXJuLXJlZHV4LXNhZ2EvcmVkdXgtc2FnYS1iZWdpbm5lci10dXRvcmlhbCIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB0ZXN0IGZyb20gXCJ0YXBlXCI7XG5cbmltcG9ydCB7IHB1dCwgY2FsbCB9IGZyb20gXCJyZWR1eC1zYWdhL2VmZmVjdHNcIjtcbmltcG9ydCB7IGRlbGF5IH0gZnJvbSBcInJlZHV4LXNhZ2FcIjtcbmltcG9ydCB7IGluY3JlbWVudEFzeW5jIH0gZnJvbSBcIi4vc2FnYXNcIjtcblxudGVzdChcImluY3JlbWVudEFzeW5jIFNhZ2EgdGVzdFwiLCAoYXNzZXJ0KSA9PiB7XG4gIGNvbnN0IGdlbiA9IGluY3JlbWVudEFzeW5jKCk7XG5cbiAgYXNzZXJ0LmRlZXBFcXVhbChcbiAgICBnZW4ubmV4dCgpLnZhbHVlLFxuICAgIGNhbGwoZGVsYXksIDEwMDApLFxuICAgIFwiaW5jcmVtZW50QXN5bmMgU2FnYSBtdXN0IGNhbGwgZGVsYXlcIlxuICApO1xuICBhc3NlcnQuZGVlcEVxdWFsKFxuICAgIGdlbi5uZXh0KCkudmFsdWUsXG4gICAgcHV0KHsgdHlwZTogXCJJTkNSRU1FTlRcIiB9KSxcbiAgICBcImluY3JlbWVudEFzeW5jIFNhZ2EgbXVzdCBkaXNwYXRjaCBJTkNSRU1FTlQgYWN0aW9uXCJcbiAgKTtcbiAgYXNzZXJ0LmRlZXBFcXVhbChcbiAgICBnZW4ubmV4dCgpLFxuICAgIHsgZG9uZTogdHJ1ZSwgdmFsdWU6IHVuZGVmaW5lZCB9LFxuICAgIFwiaW5jcmVtZW50QXN5bmMgU2FnYSBtdXN0IGJlIGRvbmVcIlxuICApO1xuXG4gIGFzc2VydC5lbmQoKTtcbn0pO1xuIl19",
+    "ast": null,
+    "map": {
+      "version": 3,
+      "sources": [
+        "sagas.spec.js"
+      ],
+      "names": [
+        "assert",
+        "gen",
+        "deepEqual",
+        "next",
+        "value",
+        "delay",
+        "type",
+        "done",
+        "undefined",
+        "end"
+      ],
+      "mappings": ";;AAAA;;;;AAEA;;AACA;;AACA;;;;AAEA,oBAAK,0BAAL,EAAiC,UAACA,MAAD,EAAY;AAC3C,MAAMC,MAAM,4BAAZ;;AAEAD,SAAOE,SAAP,CACED,IAAIE,IAAJ,GAAWC,KADb,EAEE,mBAAKC,gBAAL,EAAY,IAAZ,CAFF,EAGE,qCAHF;AAKAL,SAAOE,SAAP,CACED,IAAIE,IAAJ,GAAWC,KADb,EAEE,kBAAI,EAAEE,MAAM,WAAR,EAAJ,CAFF,EAGE,oDAHF;AAKAN,SAAOE,SAAP,CACED,IAAIE,IAAJ,EADF,EAEE,EAAEI,MAAM,IAAR,EAAcH,OAAOI,SAArB,EAFF,EAGE,kCAHF;;AAMAR,SAAOS,GAAP;AACD,CApBD",
+      "file": "sagas.spec.js",
+      "sourceRoot": "C:/Users/jw/Desktop/learn-redux-saga/redux-saga-beginner-tutorial",
+      "sourcesContent": [
+        "import test from \"tape\";\n\nimport { put, call } from \"redux-saga/effects\";\nimport { delay } from \"redux-saga\";\nimport { incrementAsync } from \"./sagas\";\n\ntest(\"incrementAsync Saga test\", (assert) => {\n  const gen = incrementAsync();\n\n  assert.deepEqual(\n    gen.next().value,\n    call(delay, 1000),\n    \"incrementAsync Saga must call delay\"\n  );\n  assert.deepEqual(\n    gen.next().value,\n    put({ type: \"INCREMENT\" }),\n    \"incrementAsync Saga must dispatch INCREMENT action\"\n  );\n  assert.deepEqual(\n    gen.next(),\n    { done: true, value: undefined },\n    \"incrementAsync Saga must be done\"\n  );\n\n  assert.end();\n});\n"
+      ]
+    },
+    "mtime": 1608079591363
+  },
+  "{\"filename\":\"C:/Users/jw/Desktop/learn-redux-saga/redux-saga-beginner-tutorial/sagas.js\",\"env\":{\"development\":{\"plugins\":[]}},\"retainLines\":false,\"highlightCode\":true,\"suppressDeprecationMessages\":false,\"presets\":[],\"plugins\":[[[],null],[[],null],[[],null],[[],null],[[],null],[[],null],[[],null],[[],null],[[],null],[[],null],[[],null],[[],null],[[],{\"loose\":false,\"spec\":false}],[[],null],[[],null],[[],{\"spec\":false}],[[],null],[[],{\"loose\":false}],[[],null],[[],null],[[],null],[[],{\"loose\":false}],[[],{\"loose\":false}],[[],null],[[],null],[[],null],[[],{\"loose\":false}],[[],null],[[],{\"loose\":false}],[[],null],[[],null],[[],{\"loose\":false}],[[],{\"async\":false,\"asyncGenerators\":false}]],\"ignore\":[],\"code\":true,\"metadata\":true,\"ast\":true,\"comments\":true,\"compact\":\"auto\",\"minified\":false,\"sourceRoot\":\"C:/Users/jw/Desktop/learn-redux-saga/redux-saga-beginner-tutorial\",\"babelrc\":true,\"sourceType\":\"module\",\"moduleIds\":false,\"passPerPreset\":false,\"parserOpts\":false,\"generatorOpts\":false}:6.26.3": {
+    "metadata": {
+      "usedHelpers": [],
+      "marked": [],
+      "modules": {
+        "imports": [
+          {
+            "source": "redux-saga",
+            "imported": [
+              "delay"
+            ],
+            "specifiers": [
+              {
+                "kind": "named",
+                "imported": "delay",
+                "local": "delay"
+              }
+            ]
+          },
+          {
+            "source": "redux-saga/effects",
+            "imported": [
+              "all",
+              "put",
+              "call",
+              "takeEvery"
+            ],
+            "specifiers": [
+              {
+                "kind": "named",
+                "imported": "all",
+                "local": "all"
+              },
+              {
+                "kind": "named",
+                "imported": "put",
+                "local": "put"
+              },
+              {
+                "kind": "named",
+                "imported": "call",
+                "local": "call"
+              },
+              {
+                "kind": "named",
+                "imported": "takeEvery",
+                "local": "takeEvery"
+              }
+            ]
+          }
+        ],
+        "exports": {
+          "exported": [
+            "incrementAsync",
+            "watchIncrementAsync",
+            "rootSaga"
+          ],
+          "specifiers": [
+            {
+              "kind": "local",
+              "local": "incrementAsync",
+              "exported": "incrementAsync"
+            },
+            {
+              "kind": "local",
+              "local": "watchIncrementAsync",
+              "exported": "watchIncrementAsync"
+            },
+            {
+              "kind": "local",
+              "local": "rootSaga",
+              "exported": "default"
+            }
+          ]
+        }
+      }
+    },
+    "options": {
+      "filename": "C:/Users/jw/Desktop/learn-redux-saga/redux-saga-beginner-tutorial/sagas.js",
+      "filenameRelative": "C:/Users/jw/Desktop/learn-redux-saga/redux-saga-beginner-tutorial/sagas.js",
+      "env": {},
+      "retainLines": false,
+      "highlightCode": true,
+      "suppressDeprecationMessages": false,
+      "presets": [],
+      "plugins": [
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          {
+            "loose": false,
+            "spec": false
+          }
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          {
+            "spec": false
+          }
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          {
+            "loose": false
+          }
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          {
+            "loose": false
+          }
+        ],
+        [
+          [],
+          {
+            "loose": false
+          }
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          {
+            "loose": false
+          }
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          {
+            "loose": false
+          }
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          null
+        ],
+        [
+          [],
+          {
+            "loose": false
+          }
+        ],
+        [
+          [],
+          {
+            "async": false,
+            "asyncGenerators": false
+          }
+        ]
+      ],
+      "ignore": [],
+      "code": true,
+      "metadata": true,
+      "ast": false,
+      "comments": true,
+      "compact": "auto",
+      "minified": false,
+      "sourceMaps": "both",
+      "sourceMapTarget": "sagas.js",
+      "sourceFileName": "sagas.js",
+      "sourceRoot": "C:/Users/jw/Desktop/learn-redux-saga/redux-saga-beginner-tutorial",
+      "babelrc": false,
+      "sourceType": "module",
+      "moduleRoot": "C:/Users/jw/Desktop/learn-redux-saga/redux-saga-beginner-tutorial",
+      "moduleIds": false,
+      "passPerPreset": false,
+      "parserOpts": false,
+      "generatorOpts": false,
+      "basename": "sagas"
+    },
+    "ignored": false,
+    "code": "\"use strict\";\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.incrementAsync = incrementAsync;\nexports.watchIncrementAsync = watchIncrementAsync;\nexports.default = rootSaga;\n\nvar _reduxSaga = require(\"redux-saga\");\n\nvar _effects = require(\"redux-saga/effects\");\n\nvar _marked = /*#__PURE__*/regeneratorRuntime.mark(incrementAsync),\n    _marked2 = /*#__PURE__*/regeneratorRuntime.mark(watchIncrementAsync),\n    _marked3 = /*#__PURE__*/regeneratorRuntime.mark(rootSaga);\n\nfunction incrementAsync() {\n  return regeneratorRuntime.wrap(function incrementAsync$(_context) {\n    while (1) {\n      switch (_context.prev = _context.next) {\n        case 0:\n          _context.next = 2;\n          return (0, _effects.call)(_reduxSaga.delay, 1000);\n\n        case 2:\n          _context.next = 4;\n          return (0, _effects.put)({ type: \"INCREMENT\" });\n\n        case 4:\n        case \"end\":\n          return _context.stop();\n      }\n    }\n  }, _marked, this);\n}\n\nfunction watchIncrementAsync() {\n  return regeneratorRuntime.wrap(function watchIncrementAsync$(_context2) {\n    while (1) {\n      switch (_context2.prev = _context2.next) {\n        case 0:\n          _context2.next = 2;\n          return (0, _effects.takeEvery)(\"INCREMENT_ASYNC\", incrementAsync);\n\n        case 2:\n        case \"end\":\n          return _context2.stop();\n      }\n    }\n  }, _marked2, this);\n}\nfunction rootSaga() {\n  return regeneratorRuntime.wrap(function rootSaga$(_context3) {\n    while (1) {\n      switch (_context3.prev = _context3.next) {\n        case 0:\n          _context3.next = 2;\n          return (0, _effects.all)([watchIncrementAsync()]);\n\n        case 2:\n        case \"end\":\n          return _context3.stop();\n      }\n    }\n  }, _marked3, this);\n}\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNhZ2FzLmpzIl0sIm5hbWVzIjpbImluY3JlbWVudEFzeW5jIiwid2F0Y2hJbmNyZW1lbnRBc3luYyIsInJvb3RTYWdhIiwiZGVsYXkiLCJ0eXBlIl0sIm1hcHBpbmdzIjoiOzs7OztRQUdpQkEsYyxHQUFBQSxjO1FBS0FDLG1CLEdBQUFBLG1CO2tCQUdRQyxROztBQVh6Qjs7QUFDQTs7bURBRWlCRixjO29EQUtBQyxtQjtvREFHUUMsUTs7QUFSbEIsU0FBVUYsY0FBVjtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQkFDQyxtQkFBS0csZ0JBQUwsRUFBWSxJQUFaLENBREQ7O0FBQUE7QUFBQTtBQUFBLGlCQUVDLGtCQUFJLEVBQUVDLE1BQU0sV0FBUixFQUFKLENBRkQ7O0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7O0FBS0EsU0FBVUgsbUJBQVY7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUJBQ0Msd0JBQVUsaUJBQVYsRUFBNkJELGNBQTdCLENBREQ7O0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFHUSxTQUFVRSxRQUFWO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBLGlCQUNQLGtCQUFJLENBQUNELHFCQUFELENBQUosQ0FETzs7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQSIsImZpbGUiOiJzYWdhcy5qcyIsInNvdXJjZVJvb3QiOiJDOi9Vc2Vycy9qdy9EZXNrdG9wL2xlYXJuLXJlZHV4LXNhZ2EvcmVkdXgtc2FnYS1iZWdpbm5lci10dXRvcmlhbCIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IGRlbGF5IH0gZnJvbSBcInJlZHV4LXNhZ2FcIjtcbmltcG9ydCB7IGFsbCwgcHV0LCBjYWxsLCB0YWtlRXZlcnkgfSBmcm9tIFwicmVkdXgtc2FnYS9lZmZlY3RzXCI7XG5cbmV4cG9ydCBmdW5jdGlvbiogaW5jcmVtZW50QXN5bmMoKSB7XG4gIHlpZWxkIGNhbGwoZGVsYXksIDEwMDApO1xuICB5aWVsZCBwdXQoeyB0eXBlOiBcIklOQ1JFTUVOVFwiIH0pO1xufVxuXG5leHBvcnQgZnVuY3Rpb24qIHdhdGNoSW5jcmVtZW50QXN5bmMoKSB7XG4gIHlpZWxkIHRha2VFdmVyeShcIklOQ1JFTUVOVF9BU1lOQ1wiLCBpbmNyZW1lbnRBc3luYyk7XG59XG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiogcm9vdFNhZ2EoKSB7XG4gIHlpZWxkIGFsbChbd2F0Y2hJbmNyZW1lbnRBc3luYygpXSk7XG59XG4iXX0=",
+    "ast": null,
+    "map": {
+      "version": 3,
+      "sources": [
+        "sagas.js"
+      ],
+      "names": [
+        "incrementAsync",
+        "watchIncrementAsync",
+        "rootSaga",
+        "delay",
+        "type"
+      ],
+      "mappings": ";;;;;QAGiBA,c,GAAAA,c;QAKAC,mB,GAAAA,mB;kBAGQC,Q;;AAXzB;;AACA;;mDAEiBF,c;oDAKAC,mB;oDAGQC,Q;;AARlB,SAAUF,cAAV;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,iBACC,mBAAKG,gBAAL,EAAY,IAAZ,CADD;;AAAA;AAAA;AAAA,iBAEC,kBAAI,EAAEC,MAAM,WAAR,EAAJ,CAFD;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;AAKA,SAAUH,mBAAV;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,iBACC,wBAAU,iBAAV,EAA6BD,cAA7B,CADD;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAGQ,SAAUE,QAAV;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,iBACP,kBAAI,CAACD,qBAAD,CAAJ,CADO;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA",
+      "file": "sagas.js",
+      "sourceRoot": "C:/Users/jw/Desktop/learn-redux-saga/redux-saga-beginner-tutorial",
+      "sourcesContent": [
+        "import { delay } from \"redux-saga\";\nimport { all, put, call, takeEvery } from \"redux-saga/effects\";\n\nexport function* incrementAsync() {\n  yield call(delay, 1000);\n  yield put({ type: \"INCREMENT\" });\n}\n\nexport function* watchIncrementAsync() {\n  yield takeEvery(\"INCREMENT_ASYNC\", incrementAsync);\n}\nexport default function* rootSaga() {\n  yield all([watchIncrementAsync()]);\n}\n"
+      ]
+    },
+    "mtime": 1608079158426
+  }
+}
