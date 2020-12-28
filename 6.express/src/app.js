@@ -55,11 +55,21 @@ app.use("/", indexRouter);
 app.use("/user", userRouter);
 app.use("/upload", uploadRouter);
 
-app.use((e, req, res, next) => {
-  console.error(e);
-  res.status(500).send(e.message);
+app.use((req, res, next) => {
+  const error = new Error(`${req.method} ${req.url} No router`);
+  error.status = 404;
+  next(error);
+});
+
+app.use((err, req, res, next) => {
+  res.locals.message = err.message;
+  res.locals.error = process.env.NODE_ENV !== "production" ? err : {};
+  res.status(err.status || 500);
+  res.render("error");
 });
 
 app.listen(app.get("port"), () => {
   console.log(app.get("port"), " Listening");
 });
+
+//FIXME: checkout Express req,res Object, Different with http req,res objects, expanded
